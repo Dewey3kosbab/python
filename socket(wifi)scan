@@ -1,0 +1,11 @@
+import socket
+
+# Set up the socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Scan for available networks
+result = sock.connect_ex(('192.168.1.1', 80))
+if result == 0:
+  print("WiFi network detected")
+else:
+  print("No WiFi networks detected")
