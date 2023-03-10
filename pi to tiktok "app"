@@ -1,0 +1,31 @@
+import time
+from appium import webdriver
+from selenium.webdriver.common.touch_actions import TouchActions
+from picamera import PiCamera
+
+# Set up camera
+camera = PiCamera()
+camera.resolution = (640, 480)
+camera.framerate = 24
+
+# Set up Appium driver
+desired_caps = {
+    'platformName': 'Android',
+    'deviceName': 'MyDevice',
+    'appPackage': 'com.zhiliaoapp.musically',
+    'appActivity': 'com.ss.android.ugc.aweme.main.MainActivity'
+}
+driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+# Start TikTok app and log in to account
+driver.start_activity('com.zhiliaoapp.musically', 'com.ss.android.ugc.aweme.splash.SplashActivity')
+time.sleep(5) # wait for app to start
+login_button = driver.find_element_by_xpath('//android.widget.TextView[@text="Log in"]')
+login_button.click()
+time.sleep(5) # wait for login page to load
+username_field = driver.find_element_by_id('com.zhiliaoapp.musically:id/username')
+username_field.send_keys('your_username')
+password_field = driver.find_element_by_id('com.zhiliaoapp.musically:id/password')
+password_field.send_keys('your_password')
+login_button = driver.find_element_by_id('com.zhiliaoapp.musically:id/login_btn')
+login
